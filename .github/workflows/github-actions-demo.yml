@@ -51,6 +51,7 @@ jobs:
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_database
+          DATABASE_PASSWORD: postgres
         run: |
           bin/rails db:create
           bin/rails db:schema:load
