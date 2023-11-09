@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to EC2 with SCP and Docker Compose
 
 on:
   push:
@@ -7,20 +7,23 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Deploy to EC2
+      - name: SCP files to EC2
+        run: |
+          scp -o "StrictHostKeyChecking=no" -r . ${{ secrets.USER }}@${{ secrets.HOST }}:/myapp
+
+      - name: Deploy with Docker Compose
         run: |
           ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.HOST }} '
+            cd /myapp
             sudo docker-compose down
-            sudo git pull
             sudo docker-compose up -d --build
           '
