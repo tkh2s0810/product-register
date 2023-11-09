@@ -20,7 +20,6 @@ jobs:
         run: |
           pwd # 現在のディレクトリを出力
           ls -la # 現在のディレクトリの内容をリストアップ
-          ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.HOST }} 'pwd; ls -la'
           scp -o "StrictHostKeyChecking=no" -r /home/runner/work/product-register/product-register ${{ secrets.USER }}@${{ secrets.HOST }}:./myapp
 
       - name: Deploy with Docker Compose
