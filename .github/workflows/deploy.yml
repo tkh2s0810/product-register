@@ -1,0 +1,26 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [main] # デプロイをトリガーするブランチを指定
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.HOST }} '
+            sudo docker-compose down
+            sudo git pull
+            sudo docker-compose up -d --build
+          '
