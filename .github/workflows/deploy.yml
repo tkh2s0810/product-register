@@ -18,6 +18,7 @@ jobs:
 
       - name: SCP files to EC2
         run: |
+          ls -a
           scp -o "StrictHostKeyChecking=no" -r . ${{ secrets.USER }}@${{ secrets.HOST }}:/myapp
 
       - name: Deploy with Docker Compose
