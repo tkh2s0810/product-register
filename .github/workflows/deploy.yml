@@ -25,7 +25,7 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.HOST }} '
-            cd /myapp
+            cd ./myapp
             sudo docker-compose down
             sudo docker-compose up -d --build
           '
