@@ -27,7 +27,7 @@ jobs:
           ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.HOST }} '
             pwd
             ls -a
-            cd ./myapp
+            cd ./myapp/product-register
             ls -a
             pwd
             sudo docker-compose down
