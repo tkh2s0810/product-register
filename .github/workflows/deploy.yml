@@ -18,7 +18,8 @@ jobs:
 
       - name: SCP files to EC2
         run: |
-          ls -a
+          pwd # 現在のディレクトリを出力
+          ls -la # 現在のディレクトリの内容をリストアップ
           scp -o "StrictHostKeyChecking=no" -r . ${{ secrets.USER }}@${{ secrets.HOST }}:/myapp
 
       - name: Deploy with Docker Compose
