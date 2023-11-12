@@ -7,6 +7,4 @@ RUN apt-get update && apt-get install -y \
     yarn
 WORKDIR /product-register
 COPY Gemfile Gemfile.lock /product-register/
-RUN bundle install && \
-    rails db:create && \
-    rails db:migrate
+RUN bundle install
